@@ -1,6 +1,6 @@
-
 "use client";
 
+import Link from "next/link";
 import {
   Bell,
   CalendarDays,
@@ -21,6 +21,7 @@ import {
   MapPin,
   CircleUserRound,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const stats = [
@@ -64,9 +65,9 @@ const stats = [
 
 const navItems = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/" },
-  { name: "Find Donors", icon: MapPin, href: "/admin/find-donors" },
-  { name: "Blood Requests", icon: Droplets, href: "/admin/blood-requests" },
-  { name: "Donors", icon: UserRound, href: "/admin/donors" },
+  { name: "Find Donors", icon: MapPin, href: "/find-donors" },
+  { name: "Blood Requests", icon: Droplets, href: "/blood-request" },
+  { name: "Donors", icon: UserRound, href: "/donors" },
   { name: "Volunteers", icon: Users, href: "/admin/volunteers" },
   { name: "Users", icon: CircleUserRound, href: "/admin/users" },
   { name: "Events", icon: CalendarDays, href: "/admin/event" },
@@ -150,7 +151,10 @@ const donors = [
 
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [active, setActive] = useState("Dashboard");
+  const pathname = usePathname();
+
+  const active =
+    navItems.find((item) => item.href === pathname)?.name || "Dashboard";
 
   return (
     <div className="min-h-screen bg-[#f5f7fa] text-[#172033]">
@@ -192,12 +196,10 @@ export default function Dashboard() {
             const isActive = active === item.name;
 
             return (
-              <button
+              <Link
                 key={item.name}
-                onClick={() => {
-                  setActive(item.name);
-                  setSidebarOpen(false);
-                }}
+                href={item.href}
+                onClick={() => setSidebarOpen(false)}
                 className={`flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-left text-md transition ${
                   isActive
                     ? "bg-[#e9232e] text-white"
@@ -206,7 +208,7 @@ export default function Dashboard() {
               >
                 <Icon size={18} strokeWidth={1.8} />
                 <span>{item.name}</span>
-              </button>
+              </Link>
             );
           })}
         </nav>
@@ -246,7 +248,7 @@ export default function Dashboard() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+                  d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1 8 8Z"
                 />
               </svg>
             </div>
@@ -390,9 +392,12 @@ export default function Dashboard() {
                   Recent Blood Requests
                 </h3>
 
-                <button className="text-sm font-medium text-red-500">
+                <Link
+                  href="/admin/blood-requests"
+                  className="text-sm font-medium text-red-500"
+                >
                   View All
-                </button>
+                </Link>
               </div>
 
               <div className="overflow-x-auto">
@@ -450,9 +455,12 @@ export default function Dashboard() {
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-md font-bold">Recent Donors</h3>
 
-                <button className="text-sm font-medium text-red-500">
+                <Link
+                  href="/admin/donors"
+                  className="text-sm font-medium text-red-500"
+                >
                   View All
-                </button>
+                </Link>
               </div>
 
               <div className="overflow-x-auto">
@@ -523,7 +531,7 @@ export default function Dashboard() {
               </div>
 
               <div className="relative z-10 max-w-[220px] pt-17">
-                <h3 className="text-3xl font-bold ">
+                <h3 className="text-3xl font-bold">
                   Together
                   <br />
                   We Save Lives
@@ -546,4 +554,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
