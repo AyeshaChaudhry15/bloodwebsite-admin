@@ -68,14 +68,14 @@ const navItems = [
   { name: "Find Donors", icon: MapPin, href: "/find-donors" },
   { name: "Blood Requests", icon: Droplets, href: "/blood-request" },
   { name: "Donors", icon: UserRound, href: "/donors" },
-  { name: "Volunteers", icon: Users, href: "/admin/volunteers" },
-  { name: "Users", icon: CircleUserRound, href: "/admin/users" },
-  { name: "Events", icon: CalendarDays, href: "/admin/event" },
-  { name: "Blogs", icon: FileText, href: "/admin/blogs" },
-  { name: "Pages", icon: ClipboardList, href: "/admin/pages" },
-  { name: "Announcements", icon: Activity, href: "/admin/announcements" },
-  { name: "Reports", icon: FileText, href: "/admin/reports" },
-  { name: "Settings", icon: Settings, href: "/admin/settings" },
+  { name: "Volunteers", icon: Users, href: "/volunteers" },
+  { name: "Users", icon: CircleUserRound, href: "/users" },
+  { name: "Events", icon: CalendarDays, href: "/event" },
+  { name: "Blogs", icon: FileText, href: "/blogs" },
+  { name: "Pages", icon: ClipboardList, href: "/pages" },
+  { name: "Announcements", icon: Activity, href: "/announcements" },
+  { name: "Reports", icon: FileText, href: "/reports" },
+  { name: "Settings", icon: Settings, href: "/settings" },
 ];
 
 const bloodGroups = [
@@ -258,18 +258,6 @@ export default function Dashboard() {
             <button className="text-gray-500">
               <Bell size={20} />
             </button>
-
-            <div className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200">
-                <UserRound size={18} className="text-gray-500" />
-              </div>
-
-              <div className="hidden sm:block">
-                <p className="text-md font-semibold">Admin</p>
-              </div>
-
-              <ChevronDown size={16} className="text-gray-400" />
-            </div>
           </div>
         </header>
 
