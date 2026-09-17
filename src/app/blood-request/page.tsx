@@ -152,6 +152,16 @@ const [requests, setRequests] =
   return (
     <div className="min-h-screen bg-[#f8fafc] p-4 sm:p-6 lg:p-8">
       <div className="mx-auto max-w-[1400px]">
+          <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+         
+
+          <button
+            onClick={() => window.history.back()}
+            className="h-10 rounded-lg border border-[#dfe4eb] bg-white px-5 text-[12px] font-semibold text-[#4c5667] transition hover:bg-gray-50"
+          >
+            ← Back to Dashboard
+          </button>
+        </div>
         <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative w-full max-w-[320px]">
             <Search
@@ -168,13 +178,6 @@ const [requests, setRequests] =
             />
           </div>
 
-          <button
-            onClick={() => setShowModal(true)}
-            className="flex h-12 items-center justify-center gap-2 rounded-xl bg-[#d91f2b] px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#bd1722] active:scale-[0.98]"
-          >
-            <Plus size={19} />
-            Add Request
-          </button>
         </div>
 
         <div className="mb-5 overflow-x-auto rounded-xl border border-slate-200 bg-white">

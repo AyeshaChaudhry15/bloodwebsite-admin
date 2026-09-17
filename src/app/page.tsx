@@ -68,14 +68,10 @@ const navItems = [
   { name: "Find Donors", icon: MapPin, href: "/find-donors" },
   { name: "Blood Requests", icon: Droplets, href: "/blood-request" },
   { name: "Donors", icon: UserRound, href: "/donors" },
-  { name: "Volunteers", icon: Users, href: "/admin/volunteers" },
-  { name: "Users", icon: CircleUserRound, href: "/admin/users" },
-  { name: "Events", icon: CalendarDays, href: "/admin/event" },
-  { name: "Blogs", icon: FileText, href: "/admin/blogs" },
-  { name: "Pages", icon: ClipboardList, href: "/admin/pages" },
-  { name: "Announcements", icon: Activity, href: "/admin/announcements" },
-  { name: "Reports", icon: FileText, href: "/admin/reports" },
-  { name: "Settings", icon: Settings, href: "/admin/settings" },
+  { name: "Events", icon: CalendarDays, href: "/event" },
+  { name: "Blogs", icon: FileText, href: "/blogs" },
+  { name: "Reports", icon: FileText, href: "/report" },
+  { name: "Settings", icon: Settings, href: "/settings" },
 ];
 
 const bloodGroups = [
@@ -170,15 +166,16 @@ export default function Dashboard() {
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
       >
-        <div className="flex h-[72px] shrink-0 items-center border-b border-white/10 px-6">
+        <div className="flex h-[72px] shrink-0 items-center border-b border-white/10 px-6 ">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500">
-              <Droplets size={21} fill="white" />
-            </div>
+            <img
+              src="/logo.png"
+              alt="blood-donoir-website"
+              className="h-10 w-30 inline-block object-cover bg-white rounded-2xl"
+            />
 
-            <div>
-              <h1 className="text-lg font-bold tracking-wide">PWS</h1>
-              <p className="text-sm text-gray-400">Admin Panel</p>
+            <div className="w-full">
+              <p className="text-sm text-white">Admin Panel</p>
             </div>
           </div>
 
@@ -190,7 +187,7 @@ export default function Dashboard() {
           </button>
         </div>
 
-        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-5">
+        <nav className="flex-1 space-y-3 overflow-y-auto px-3 py-5">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = active === item.name;
@@ -237,20 +234,6 @@ export default function Dashboard() {
                 placeholder="Search here..."
                 className="h-10 w-[260px] rounded-lg bg-[#f5f7fa] pl-9 pr-3 text-md outline-none placeholder:text-gray-400"
               />
-
-              <svg
-                className="absolute left-3 top-3 h-4 w-4 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1 8 8Z"
-                />
-              </svg>
             </div>
           </div>
 
@@ -327,9 +310,7 @@ export default function Dashboard() {
                     </span>
                   </div>
 
-                  <p className="mt-1 text-sm text-gray-400">
-                    {stat.label}
-                  </p>
+                  <p className="mt-1 text-sm text-gray-400">{stat.label}</p>
                 </div>
               );
             })}
@@ -338,13 +319,10 @@ export default function Dashboard() {
           <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-[1.15fr_1fr]">
             <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-md font-bold">
-                  Blood Group Distribution
-                </h3>
-
-                <button className="text-sm text-red-500">
-                  View Report
-                </button>
+                <h3 className="text-md font-bold">Blood Group Distribution</h3>
+                <Link href={"/report"}>
+                  <button className="text-sm text-red-500">View Report</button>
+                </Link>
               </div>
 
               <div className="flex h-[205px] gap-3">
@@ -388,12 +366,10 @@ export default function Dashboard() {
 
             <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-md font-bold">
-                  Recent Blood Requests
-                </h3>
+                <h3 className="text-md font-bold">Recent Blood Requests</h3>
 
                 <Link
-                  href="/admin/blood-requests"
+                  href="/blood-request"
                   className="text-sm font-medium text-red-500"
                 >
                   View All
@@ -456,7 +432,7 @@ export default function Dashboard() {
                 <h3 className="text-md font-bold">Recent Donors</h3>
 
                 <Link
-                  href="/admin/donors"
+                  href="/donors"
                   className="text-sm font-medium text-red-500"
                 >
                   View All

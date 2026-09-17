@@ -36,7 +36,7 @@ export default function DonorsPage() {
     bloodGroup: "All",
     city: "All",
     status: "All",
-    donation: "All"
+    donation: "All",
   });
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [page, setPage] = useState(1);
@@ -55,7 +55,7 @@ export default function DonorsPage() {
     "Islamabad",
     "Faisalabad",
     "Rawalpindi",
-    "Sialkot"
+    "Sialkot",
   ];
 
   const filteredDonors = useMemo(() => {
@@ -71,18 +71,17 @@ export default function DonorsPage() {
         donor.cnic.toLowerCase().includes(search);
 
       const matchesBlood =
-        filters.bloodGroup === "All" ||
-        donor.bloodGroup === filters.bloodGroup;
+        filters.bloodGroup === "All" || donor.bloodGroup === filters.bloodGroup;
 
-      const matchesCity =
-        filters.city === "All" || donor.city === filters.city;
+      const matchesCity = filters.city === "All" || donor.city === filters.city;
 
       const matchesStatus =
         filters.status === "All" || donor.status === filters.status;
 
       const matchesDonation =
         filters.donation === "All" ||
-        (filters.donation === "Recent" && donor.lastDonation.includes("2025")) ||
+        (filters.donation === "Recent" &&
+          donor.lastDonation.includes("2025")) ||
         (filters.donation === "Older" && donor.lastDonation.includes("2024"));
 
       return (
@@ -101,7 +100,7 @@ export default function DonorsPage() {
 
   const currentDonors = filteredDonors.slice(
     (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE
+    currentPage * PAGE_SIZE,
   );
 
   const allCurrentSelected =
@@ -111,7 +110,7 @@ export default function DonorsPage() {
   const updateFilter = (key: keyof FilterState, value: string) => {
     setFilters((prev) => ({
       ...prev,
-      [key]: value
+      [key]: value,
     }));
     setPage(1);
   };
@@ -122,27 +121,25 @@ export default function DonorsPage() {
       bloodGroup: "All",
       city: "All",
       status: "All",
-      donation: "All"
+      donation: "All",
     });
     setPage(1);
   };
 
   const toggleSelect = (id: number) => {
     setSelected((prev) =>
-      prev.includes(id)
-        ? prev.filter((item) => item !== id)
-        : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
   const toggleSelectAll = () => {
     if (allCurrentSelected) {
       setSelected((prev) =>
-        prev.filter((id) => !currentDonors.some((donor) => donor.id === id))
+        prev.filter((id) => !currentDonors.some((donor) => donor.id === id)),
       );
     } else {
       setSelected((prev) => [
-        ...new Set([...prev, ...currentDonors.map((donor) => donor.id)])
+        ...new Set([...prev, ...currentDonors.map((donor) => donor.id)]),
       ]);
     }
   };
@@ -162,9 +159,7 @@ export default function DonorsPage() {
     if (!editDonor) return;
 
     setDonors((prev) =>
-      prev.map((donor) =>
-        donor.id === editDonor.id ? editDonor : donor
-      )
+      prev.map((donor) => (donor.id === editDonor.id ? editDonor : donor)),
     );
 
     setEditDonor(null);
@@ -188,12 +183,20 @@ export default function DonorsPage() {
 
   const visiblePages = Array.from(
     { length: totalPages },
-    (_, index) => index + 1
+    (_, index) => index + 1,
   ).slice(0, 6);
 
   return (
     <main className="min-h-screen bg-[#f7f9fc] p-4 md:p-8">
       <div className="mx-auto max-w-[1500px]">
+        <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <button
+            onClick={() => window.history.back()}
+            className="h-10 rounded-lg border border-[#dfe4eb] bg-white px-5 text-[12px] font-semibold text-[#4c5667] transition hover:bg-gray-50"
+          >
+            ← Back to Dashboard
+          </button>
+        </div>
         <div className="mb-5">
           <h1 className="text-[24px] font-bold tracking-[-0.5px] text-[#172033]">
             Find Donors <span className="font-semibold">(Admin Only)</span>
@@ -511,7 +514,9 @@ export default function DonorsPage() {
                   <button
                     onClick={() => goToPage(totalPages)}
                     className={`h-8 min-w-8 rounded-md border border-[#e1e5eb] px-2 text-[12px] font-semibold text-[#596474] hover:bg-gray-50 ${
-                      currentPage === totalPages ? "bg-[#c92835] text-white" : ""
+                      currentPage === totalPages
+                        ? "bg-[#c92835] text-white"
+                        : ""
                     }`}
                   >
                     {totalPages}
@@ -541,9 +546,7 @@ export default function DonorsPage() {
               <h2 className="text-lg font-bold text-[#172033]">
                 {viewDonor.name}
               </h2>
-              <p className="text-xs text-[#788292]">
-                Donor ID #{viewDonor.id}
-              </p>
+              <p className="text-xs text-[#788292]">Donor ID #{viewDonor.id}</p>
             </div>
           </div>
 
@@ -554,7 +557,10 @@ export default function DonorsPage() {
             <InfoItem label="Whatsapp No" value={viewDonor.whatsappNo || "—"} />
             <InfoItem label="GMail" value={viewDonor.gmail || "—"} />
             <InfoItem label="City" value={viewDonor.city || "—"} />
-            <InfoItem label="Educational Sector" value={viewDonor.educationalSector || "Nill"} />
+            <InfoItem
+              label="Educational Sector"
+              value={viewDonor.educationalSector || "Nill"}
+            />
             <InfoItem label="CNIC" value={viewDonor.cnic} />
             <InfoItem label="Age" value={`${viewDonor.age} years`} />
             <InfoItem label="Gender" value={viewDonor.gender} />
@@ -578,42 +584,34 @@ export default function DonorsPage() {
             <InputField
               label="Name"
               value={editDonor.name}
-              onChange={(value) =>
-                setEditDonor({ ...editDonor, name: value })
-              }
+              onChange={(value) => setEditDonor({ ...editDonor, name: value })}
             />
 
             <InputField
               label="Mobile No"
               value={editDonor.phone}
-              onChange={(value) =>
-                setEditDonor({ ...editDonor, phone: value })
-              }
+              onChange={(value) => setEditDonor({ ...editDonor, phone: value })}
             />
 
             <InputField
               label="GMail"
               value={editDonor.gmail}
-              onChange={(value) =>
-                setEditDonor({ ...editDonor, gmail: value })
-              }
+              onChange={(value) => setEditDonor({ ...editDonor, gmail: value })}
               type="email"
             />
 
-       <InputField
-  label="Whatsapp No"
-  value={editDonor.whatsappNo}
-  onChange={(value) =>
-    setEditDonor({ ...editDonor, whatsappNo: value })
-  }
-/>
+            <InputField
+              label="Whatsapp No"
+              value={editDonor.whatsappNo}
+              onChange={(value) =>
+                setEditDonor({ ...editDonor, whatsappNo: value })
+              }
+            />
 
             <InputField
               label="CNIC"
               value={editDonor.cnic}
-              onChange={(value) =>
-                setEditDonor({ ...editDonor, cnic: value })
-              }
+              onChange={(value) => setEditDonor({ ...editDonor, cnic: value })}
             />
 
             <InputField
@@ -637,9 +635,7 @@ export default function DonorsPage() {
               label="City"
               value={editDonor.city}
               options={cities.filter((item) => item !== "All")}
-              onChange={(value) =>
-                setEditDonor({ ...editDonor, city: value })
-              }
+              onChange={(value) => setEditDonor({ ...editDonor, city: value })}
             />
 
             <FilterSelect
@@ -649,7 +645,7 @@ export default function DonorsPage() {
               onChange={(value) =>
                 setEditDonor({
                   ...editDonor,
-                  status: value as "Available" | "Unavailable"
+                  status: value as "Available" | "Unavailable",
                 })
               }
             />
@@ -661,7 +657,11 @@ export default function DonorsPage() {
               onChange={(value) =>
                 setEditDonor({
                   ...editDonor,
-                  educationalSector: value as "School" | "College" | "University" | "Nill"
+                  educationalSector: value as
+                    | "School"
+                    | "College"
+                    | "University"
+                    | "Nill",
                 })
               }
             />
@@ -672,7 +672,7 @@ export default function DonorsPage() {
               onChange={(value) =>
                 setEditDonor({
                   ...editDonor,
-                  age: Number(value) || 0
+                  age: Number(value) || 0,
                 })
               }
               type="number"
@@ -712,7 +712,7 @@ function FilterSelect({
   label,
   value,
   options,
-  onChange
+  onChange,
 }: {
   label: string;
   value: string;
@@ -744,7 +744,7 @@ function InputField({
   label,
   value,
   onChange,
-  type = "text"
+  type = "text",
 }: {
   label: string;
   value: string;
@@ -767,28 +767,20 @@ function InputField({
   );
 }
 
-function InfoItem({
-  label,
-  value
-}: {
-  label: string;
-  value: string;
-}) {
+function InfoItem({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-[#edf0f4] bg-[#fafbfc] p-3">
       <p className="text-[10px] font-semibold uppercase text-[#8a94a3]">
         {label}
       </p>
-      <p className="mt-1 text-[13px] font-semibold text-[#303b4b]">
-        {value}
-      </p>
+      <p className="mt-1 text-[13px] font-semibold text-[#303b4b]">{value}</p>
     </div>
   );
 }
 
 function Modal({
   children,
-  onClose
+  onClose,
 }: {
   children: React.ReactNode;
   onClose: () => void;
