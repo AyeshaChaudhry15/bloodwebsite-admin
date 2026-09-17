@@ -241,18 +241,6 @@ export default function Dashboard() {
             <button className="text-gray-500">
               <Bell size={20} />
             </button>
-
-            <div className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200">
-                <UserRound size={18} className="text-gray-500" />
-              </div>
-
-              <div className="hidden sm:block">
-                <p className="text-md font-semibold">Admin</p>
-              </div>
-
-              <ChevronDown size={16} className="text-gray-400" />
-            </div>
           </div>
         </header>
 
